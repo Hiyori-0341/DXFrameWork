@@ -3,7 +3,7 @@
 namespace
 {
 	// ウィンドウクラス名
-	constexpr wchar_t kClassName[] = L"DX12WindowClass";
+	constexpr wchar_t kClassName[] = L"DXFrameWork";
 }
 
 Window::~Window()
@@ -152,7 +152,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		// ウィンドウが破棄されるときに、ウィンドウハンドルからthisポインタを解除する
 		m_hWnd = nullptr;
 		SetWindowLongPtr(hWnd, GWLP_USERDATA, 0);
-		return 0;
+		break;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
