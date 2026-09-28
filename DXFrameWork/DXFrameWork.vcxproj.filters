@@ -19,6 +19,9 @@
     <Filter Include="Graphics">
       <UniqueIdentifier>{48792b7b-083e-4362-8453-727be581a000}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{a97060f0-8ffe-42e1-b9fc-6a6f2e93532a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,6 +39,15 @@
     <ClCompile Include="Graphics\GraphicsDevice.cpp">
       <Filter>Graphics</Filter>
     </ClCompile>
+    <ClCompile Include="Input\KeyboardInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\MouseInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\GamePadInput.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h">
@@ -52,6 +64,15 @@
     </ClInclude>
     <ClInclude Include="Graphics\D3DHelper.h">
       <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\KeyboardInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\MouseInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\GamePadInput.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

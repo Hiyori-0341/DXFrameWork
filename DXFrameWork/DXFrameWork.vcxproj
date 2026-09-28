@@ -131,6 +131,9 @@
     <ClCompile Include="Core\Time.cpp" />
     <ClCompile Include="Core\Window.cpp" />
     <ClCompile Include="Graphics\GraphicsDevice.cpp" />
+    <ClCompile Include="Input\GamePadInput.cpp" />
+    <ClCompile Include="Input\KeyboardInput.cpp" />
+    <ClCompile Include="Input\MouseInput.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +142,9 @@
     <ClInclude Include="Core\Window.h" />
     <ClInclude Include="Graphics\D3DHelper.h" />
     <ClInclude Include="Graphics\GraphicsDevice.h" />
+    <ClInclude Include="Input\GamePadInput.h" />
+    <ClInclude Include="Input\KeyboardInput.h" />
+    <ClInclude Include="Input\MouseInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
