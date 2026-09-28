@@ -183,3 +183,8 @@ bool Window::IsMinimized() const
 {
 	return m_isMinimized;
 }
+
+void Window::SetTitle(const std::wstring& title)
+{
+	SetWindowText(m_hWnd, title.c_str());
+}

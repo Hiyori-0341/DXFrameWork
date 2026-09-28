@@ -36,6 +36,8 @@ public:
 	int GetHeight() const;
 	bool IsMinimized() const;
 
+	void SetTitle(const std::wstring& title);
+
 private:
 	// ウィンドウハンドル
 	static LRESULT CALLBACK WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);

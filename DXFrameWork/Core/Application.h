@@ -1,8 +1,8 @@
 #pragma once
-
 #include <windows.h>
 #include "Window.h"
 #include "Time.h"
+#include "Graphics/GraphicsDevice.h"
 
 // アプリケーション全体の流れ(初期化 → ループ → 終了)を管理するクラス
 class Application
@@ -16,6 +16,7 @@ private:
 	void Render();
 	void UpdateWindowTitle();
 
-	Window m_window;
-	Time   m_time;
+	Window         m_window;
+	Time           m_time;
+	GraphicsDevice m_graphics;
 };
