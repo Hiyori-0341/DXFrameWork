@@ -132,6 +132,7 @@
     <ClCompile Include="Core\Window.cpp" />
     <ClCompile Include="Graphics\GraphicsDevice.cpp" />
     <ClCompile Include="Input\GamePadInput.cpp" />
+    <ClCompile Include="Input\InputSystem.cpp" />
     <ClCompile Include="Input\KeyboardInput.cpp" />
     <ClCompile Include="Input\MouseInput.cpp" />
     <ClCompile Include="main.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Graphics\D3DHelper.h" />
     <ClInclude Include="Graphics\GraphicsDevice.h" />
     <ClInclude Include="Input\GamePadInput.h" />
+    <ClInclude Include="Input\InputSystem.h" />
     <ClInclude Include="Input\KeyboardInput.h" />
     <ClInclude Include="Input\MouseInput.h" />
   </ItemGroup>

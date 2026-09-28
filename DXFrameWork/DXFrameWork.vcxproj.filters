@@ -48,6 +48,9 @@
     <ClCompile Include="Input\GamePadInput.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Input\InputSystem.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h">
@@ -72,6 +75,9 @@
       <Filter>Input</Filter>
     </ClInclude>
     <ClInclude Include="Input\GamePadInput.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\InputSystem.h">
       <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
