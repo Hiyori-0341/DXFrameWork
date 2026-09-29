@@ -27,6 +27,7 @@ enum class GamepadButton : unsigned short
 // WIndowのメッセージは使わずに、毎フレームUpdate()を呼ぶことで状態を更新する
 class GamepadInput
 {
+public:
 	explicit GamepadInput(DWORD userIndex);
 
 	void Update();				//コントローラの状態を更新する

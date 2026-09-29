@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Time.h"
 #include "Graphics/GraphicsDevice.h"
+#include "Input/InputSystem.h"
 
 // アプリケーション全体の流れ(初期化 → ループ → 終了)を管理するクラス
 class Application
@@ -19,4 +20,5 @@ private:
 	Window         m_window;
 	Time           m_time;
 	GraphicsDevice m_graphics;
+	InputSystem    m_input;
 };

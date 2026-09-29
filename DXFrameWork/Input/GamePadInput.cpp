@@ -74,14 +74,6 @@ void GamepadInput::SetVibration(float leftMotor, float rightMotor)
 	XInputSetState(m_userIndex, &vibration);
 }
 
-void GamepadInput::SetVibration(float leftMotor, float rightMotor)
-{
-	XINPUT_VIBRATION vibration{};
-	vibration.wLeftMotorSpeed = static_cast<WORD>(std::clamp(leftMotor, 0.0f, 1.0f) * 65535.0f);
-	vibration.wRightMotorSpeed = static_cast<WORD>(std::clamp(rightMotor, 0.0f, 1.0f) * 65535.0f);
-	XInputSetState(m_userIndex, &vibration);
-}
-
 // スティックの値にデッドゾーンを適用する
 float GamepadInput::ApplyStickDeadZone(SHORT value, SHORT deadzone)
 {

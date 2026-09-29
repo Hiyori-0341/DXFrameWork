@@ -26,6 +26,28 @@ bool Application::Initialize(HINSTANCE hInstance, int nCmdShow)
 			m_graphics.Resize(width, height);
 		});
 
+	// キーボード/マウスの入力コールバックを登録する
+	m_window.SetKeyCallback([this](int virtualKey, bool isDown)
+		{
+			if (isDown)m_input.Keyboard().OnKeyDown(virtualKey);
+			else       m_input.Keyboard().OnKeyUp(virtualKey);
+		});
+
+	m_window.SetMouseMoveCallback([this](int x, int y)
+		{
+			m_input.Mouse().OnMove(x, y);
+		});
+
+	m_window.SetMouseButtonCallback([this](int button, bool isDown)
+		{
+			m_input.Mouse().OnButton(static_cast<MouseButton>(button), isDown);
+		});
+
+	m_window.SetMouseWheelCallback([this](int delta)
+		{
+			m_input.Mouse().OnWheel(delta);
+		});
+
 	m_window.Show(nCmdShow);
 	m_time.Initialize();
 	return true;
@@ -39,8 +61,11 @@ int Application::Run()
 		// 最小化中も Tick は呼ぶ(復帰時に巨大な deltaTime が出ないようにする)
 		m_time.Tick();
 
+		// 入力の更新
+		m_input.NewFrame();
+
 		// 最小化中は更新も描画もしない(CPUを使い切らないよう少し待つ)
-		if (m_window.IsMinimized())
+		if (m_window.GetIsMinimized())
 		{
 			Sleep(10);
 			continue;
@@ -54,7 +79,7 @@ int Application::Run()
 
 void Application::Update()
 {
-	// ステップ4以降: Input / ゲームの更新
+
 	UpdateWindowTitle();
 }
 

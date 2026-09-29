@@ -34,9 +34,30 @@ public:
 	HWND GetHWND() const;
 	int GetWidth() const;
 	int GetHeight() const;
-	bool IsMinimized() const;
+	bool GetIsMinimized() const;
 
 	void SetTitle(const std::wstring& title);
+
+
+	// キーが押された/離されたときに呼ばれるコールバック関数を登録する
+	using KeyCallback = std::function<void(int virtualKey, bool isDown)>;
+
+	//マウスが動いたときに呼ばれるコールバック関数を登録する
+	using MouseMoveCallback = std::function<void(int x, int y)>;
+
+	//マウスボタンが押された/離されたときに呼ばれるコールバック関数を登録する
+	//button: 0=左ボタン, 1=右ボタン, 2=中ボタン
+	using MouseButtonCallback = std::function<void(int button, bool isDown)>;
+
+	//マウスホイールが回転したときに呼ばれるコールバック関数を登録する
+	using MouseWheelCallback = std::function<void(int delta)>;
+
+	//キーボード/マウスのコールバック関数を登録する
+	void SetKeyCallback(KeyCallback callback);
+	void SetMouseMoveCallback(MouseMoveCallback callback);	
+	void SetMouseButtonCallback(MouseButtonCallback callback);
+	void SetMouseWheelCallback(MouseWheelCallback callback);
+
 
 private:
 	// ウィンドウハンドル
@@ -50,4 +71,8 @@ private:
 	bool			m_isMinimized = false;			//ウィンドウが最小化されているかどうか
 	ResizeCallBack	m_resizeCallback = nullptr;		//リサイズ時に呼ばれるコールバック関数
 
+	KeyCallback			m_keyCallback = nullptr;			//キーが押された/離されたときに呼ばれるコールバック関数
+	MouseMoveCallback	m_mouseMoveCallback = nullptr;	//マウスが動いたときに呼ばれるコールバック関数
+	MouseButtonCallback	m_mouseButtonCallback = nullptr;	//マウスボタンが押された/離されたときに呼ばれるコールバック関数
+	MouseWheelCallback	m_mouseWheelCallback = nullptr;	//マウスホイールが回転したときに呼ばれるコールバック関数
 };

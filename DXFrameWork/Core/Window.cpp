@@ -1,4 +1,5 @@
 #include "Window.h"
+#include <windowsx.h>	// GET_X_LPARAM, GET_Y_LPARAM
 
 namespace
 {
@@ -94,6 +95,26 @@ bool Window::PumpMessages()
 	return true;
 }
 
+void Window::SetKeyCallback(KeyCallback callback)
+{
+	m_keyCallback = std::move(callback);
+}
+
+void Window::SetMouseMoveCallback(MouseMoveCallback callback)
+{
+	m_mouseMoveCallback = std::move(callback);
+}
+
+void Window::SetMouseButtonCallback(MouseButtonCallback callback)
+{
+	m_mouseButtonCallback = std::move(callback);
+}
+
+void Window::SetMouseWheelCallback(MouseWheelCallback callback)
+{
+	m_mouseWheelCallback = std::move(callback);
+}
+
 //ウィンドウプロシージャ、thisポインタを取得してHandleMessageに処理を委譲する
 LRESULT CALLBACK Window::WindowProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -128,7 +149,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
 	{
-	// ウィンドウのサイズが変更されたときの処理
+		// ウィンドウのサイズが変更されたときの処理
 	case WM_SIZE:
 		m_isMinimized = (wParam == SIZE_MINIMIZED);
 		if (!m_isMinimized)
@@ -142,12 +163,63 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		}
 		return 0;
 
-	// ウィンドウが破棄されるときの処理
+		// キーが押されたときの処理
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN:
+		if (m_keyCallback)
+		{
+			m_keyCallback(static_cast<int>(wParam), true);
+		}
+		// ALT+F4などのシステムキー規定動作も必要なので、DefWindowProcへ通すためbreak
+		break;
+
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		if (m_keyCallback)
+		{
+			m_keyCallback(static_cast<int>(wParam), false);
+		}
+		break;
+
+	case WM_MOUSEMOVE:
+		if (m_mouseMoveCallback)
+		{
+			m_mouseMoveCallback(GET_X_LPARAM(lParam), GET_Y_LPARAM(lParam));
+		}
+		return 0;
+
+	case WM_LBUTTONDOWN:
+		if (m_mouseButtonCallback) m_mouseButtonCallback(0, true);
+		return 0;
+	case WM_LBUTTONUP:
+		if (m_mouseButtonCallback) m_mouseButtonCallback(0, false);
+		return 0;
+	case WM_RBUTTONDOWN:
+		if (m_mouseButtonCallback) m_mouseButtonCallback(1, true);
+		return 0;
+	case WM_RBUTTONUP:
+		if (m_mouseButtonCallback) m_mouseButtonCallback(1, false);
+		return 0;
+	case WM_MBUTTONDOWN:
+		if (m_mouseButtonCallback) m_mouseButtonCallback(2, true);
+		return 0;
+	case WM_MBUTTONUP:
+		if (m_mouseButtonCallback) m_mouseButtonCallback(2, false);
+		return 0;
+
+	case WM_MOUSEWHEEL:
+		if (m_mouseWheelCallback)
+		{
+			// ホイールの回転量を WHEEL_DELTA で割って、1単位あたりの回転量に変換する
+			m_mouseWheelCallback(GET_WHEEL_DELTA_WPARAM(wParam) / WHEEL_DELTA);
+		}
+		return 0;
+
+		// ウィンドウが破棄されるときの処理
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
 
-	// ウィンドウが破棄されるときの処理
 	case WM_NCDESTROY:
 		// ウィンドウが破棄されるときに、ウィンドウハンドルからthisポインタを解除する
 		m_hWnd = nullptr;
@@ -157,7 +229,6 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
-
 
 void Window::SetResizeCallBack(ResizeCallBack callback)
 {
@@ -179,7 +250,7 @@ int Window::GetHeight() const
 	return m_height;
 }
 
-bool Window::IsMinimized() const
+bool Window::GetIsMinimized() const
 {
 	return m_isMinimized;
 }
