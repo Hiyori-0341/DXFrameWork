@@ -48,6 +48,12 @@ bool Application::Initialize(HINSTANCE hInstance, int nCmdShow)
 			m_input.Mouse().OnWheel(delta);
 		});
 
+	//Physicの動作確認：床と球を作る
+	//GameObject/RigidBodyができるまで、PhysicsWorldを直接使う
+	m_debugFloorId = m_physics.CreateStaticBox(JPH::RVec3(0.0, -1.0, 0.0), JPH::RVec3(50.0f, 1.0f, 50.0f));
+	m_debugSphereId = m_physics.CreateDynamicSphere(JPH::RVec3(0.0, 5.0, 0.0), 0.5f);
+
+
 	m_window.Show(nCmdShow);
 	m_time.Initialize();
 	return true;
@@ -74,11 +80,18 @@ int Application::Run()
 		Update();
 		Render();
 	}
+
+	//生成した動作確認用の剛体を削除してからJoltを終了する
+	m_physics.RemoveAndDestroyBody(m_debugSphereId);
+	m_physics.RemoveAndDestroyBody(m_debugFloorId);
+	m_physics.Shutdown();
+
 	return 0;
 }
 
 void Application::Update()
 {
+	m_physics.Update(m_time.GetDeltaTime());
 
 	UpdateWindowTitle();
 }
@@ -100,9 +113,12 @@ void Application::UpdateWindowTitle()
 		return;
 	}
 
-	wchar_t title[128]{};
-	swprintf_s(title, L"DXFrameWork  FPS: %.1f  dt: %.4f ms",
-		m_time.GetFPS(), m_time.GetDeltaTime() * 1000.0f);
+	// 動作確認: 球のY座標もタイトルバーに出す
+	JPH::RVec3 spherePos = m_physics.GetBodyPosition(m_debugSphereId);
+
+	wchar_t title[192]{};
+	swprintf_s(title, L"DXFrameWork  FPS: %.1f  dt: %.4f ms  SphereY: %.3f",
+		m_time.GetFPS(), m_time.GetDeltaTime() * 1000.0f, spherePos.GetY());
 
 	m_window.SetTitle(title);
 }

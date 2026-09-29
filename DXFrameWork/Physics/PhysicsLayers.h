@@ -42,27 +42,49 @@ namespace BroadPhaseLayers
 	static constexpr uint			 NUM_LAYERS(2);
 }
 
-class BPLayerInterfaceImpl : public BroadPhaseLayerInterface
+class BPLayerInterfaceImpl final : public BroadPhaseLayerInterface
 {
 public:
-	BPLayerInterfaceImpl()
-	{
-		mObjectToBroadPhase[Layers::NON_MOVING] = BroadPhaseLayers::NON_MOVING;
-		mObjectToBroadPhase[Layers::MOVING] = BroadPhaseLayers::MOVING;
-	}
+    BPLayerInterfaceImpl()
+    {
+        mObjectToBroadPhase[Layers::NON_MOVING] =
+            BroadPhaseLayers::NON_MOVING;
 
-	uint GetNumBroadPhaseLayers() const override
-	{
-		return BroadPhaseLayers::NUM_LAYERS;
-	}
+        mObjectToBroadPhase[Layers::MOVING] =
+            BroadPhaseLayers::MOVING;
+    }
 
-	BroadPhaseLayer GetBroadPhaseLayer(ObjectLayer inLayer) const override
-	{
-		return mObjectToBroadPhase[inLayer];
-	}
+    uint GetNumBroadPhaseLayers() const override
+    {
+        return BroadPhaseLayers::NUM_LAYERS;
+    }
+
+    BroadPhaseLayer GetBroadPhaseLayer(
+        ObjectLayer inLayer) const override
+    {
+        JPH_ASSERT(inLayer < Layers::NUM_LAYERS);
+        return mObjectToBroadPhase[inLayer];
+    }
+
+    const char* GetBroadPhaseLayerName(
+        BroadPhaseLayer inLayer) const override
+    {
+        switch ((BroadPhaseLayer::Type)inLayer)
+        {
+        case (BroadPhaseLayer::Type)BroadPhaseLayers::NON_MOVING:
+            return "NON_MOVING";
+
+        case (BroadPhaseLayer::Type)BroadPhaseLayers::MOVING:
+            return "MOVING";
+
+        default:
+            JPH_ASSERT(false);
+            return "INVALID";
+        }
+    }
 
 private:
-	BroadPhaseLayer mObjectToBroadPhase[Layers::NUM_LAYERS];
+    BroadPhaseLayer mObjectToBroadPhase[Layers::NUM_LAYERS];
 };
 
 // ObjectLayer ‚Æ BroadPhaseLayer ‚Ì‘g‚Ý‡‚í‚¹‚ªÕ“Ë”»’è‘ÎÛ‚©‚Ç‚¤‚©‚ð”»’è‚·‚éƒNƒ‰ƒX
