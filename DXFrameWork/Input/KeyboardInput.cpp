@@ -1,6 +1,5 @@
 #include "KeyboardInput.h"
 
-/// @brief 
 void KeyboardInput::NewFrame()
 {
 	m_previous = m_current;
