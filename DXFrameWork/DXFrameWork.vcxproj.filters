@@ -22,6 +22,9 @@
     <Filter Include="Input">
       <UniqueIdentifier>{a97060f0-8ffe-42e1-b9fc-6a6f2e93532a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{dc3bdb09-0c5f-4c67-9f84-7c767239cb3e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="Input\InputSystem.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\PhysicsWorld.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h">
@@ -79,6 +85,12 @@
     </ClInclude>
     <ClInclude Include="Input\InputSystem.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsLayers.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsWorld.h">
+      <Filter>Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
