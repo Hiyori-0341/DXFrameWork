@@ -23,7 +23,7 @@ public:
 	//çÑëÃÇÃê∂ê¨(ç≈è¨å¿)
 	//å„Ç≈RigidBodyÇ…íuÇ´ä∑Ç¶ÇÈ
 
-	JPH::BodyID CreateStaticBox(JPH::RVec3Arg position, JPH::RVec3Arg halfExtent);
+	JPH::BodyID CreateStaticBox(JPH::RVec3Arg position, JPH::Vec3Arg halfExtent);
 
 	//ìÆìIÇ»ãÖÇê∂ê¨
 	JPH::BodyID CreateDynamicSphere(JPH::RVec3Arg position, float radius);
@@ -42,7 +42,7 @@ private:
 	std::unique_ptr<JPH::JobSystemThreadPool> m_jobSystem;
 
 	BPLayerInterfaceImpl m_broadPhaseLayerInterface;
-	ObjectVsBroadPhaseLayerFilter m_objectVsBroadPhaseLayerFilter;
+	ObjectVsBroadPhaseLayerFilterImpl m_objectVsBroadPhaseLayerFilter;
 	ObjectLayerPairFilterImpl m_objectLayerPairFilter;
 
 	JPH::PhysicsSystem m_physicsSystem;

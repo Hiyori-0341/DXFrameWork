@@ -20,6 +20,12 @@ bool Application::Initialize(HINSTANCE hInstance, int nCmdShow)
 		return false;
 	}
 
+	// Jolt Physicsの初期化
+	if (!m_physics.Initialize())
+	{
+		return false;
+	}
+
 	// ウィンドウのサイズが変わったら、描画先を作り直す
 	m_window.SetResizeCallBack([this](int width, int height)
 		{
@@ -50,7 +56,7 @@ bool Application::Initialize(HINSTANCE hInstance, int nCmdShow)
 
 	//Physicの動作確認：床と球を作る
 	//GameObject/RigidBodyができるまで、PhysicsWorldを直接使う
-	m_debugFloorId = m_physics.CreateStaticBox(JPH::RVec3(0.0, -1.0, 0.0), JPH::RVec3(50.0f, 1.0f, 50.0f));
+	m_debugFloorId = m_physics.CreateStaticBox(JPH::RVec3(0.0, -1.0, 0.0), JPH::Vec3(50.0f, 1.0f, 50.0f));
 	m_debugSphereId = m_physics.CreateDynamicSphere(JPH::RVec3(0.0, 5.0, 0.0), 0.5f);
 
 
