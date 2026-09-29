@@ -63,7 +63,7 @@ int Application::Run()
 
 		// 入力の更新
 		m_input.NewFrame();
-
+		
 		// 最小化中は更新も描画もしない(CPUを使い切らないよう少し待つ)
 		if (m_window.GetIsMinimized())
 		{
